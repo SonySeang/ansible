@@ -1,8 +1,15 @@
-apiVersion: app/v1
-kind : Service
-metadata :
-    name : nginx-deployment
-    labels:
-spec:
-    replicas : 2
-    selector:
+---
+-  name : Basic System Set up
+   hosts : web
+   become: true
+   tasks:
+    -   name : update all security-related pacakages
+        ansible.builtin.pacakages:
+            name : 'a'
+            states : lastest
+            security : true
+    -   name : Create a new username
+        ansible.builtin.users:
+            name : roger
+            states : present
+            create_home : true
